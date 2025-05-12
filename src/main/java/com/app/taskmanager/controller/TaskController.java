@@ -1,4 +1,3 @@
 package com.app.taskmanager.controller;
 
-public class TaskController {
-}
+public class TaskController {}

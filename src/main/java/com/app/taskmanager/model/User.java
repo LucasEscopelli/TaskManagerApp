@@ -1,25 +1,25 @@
 package com.app.taskmanager.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long userId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long userId;
 
-    String name;
+  String name;
 
-    @OneToMany(mappedBy = "ownerUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Task> tasks;
+  @OneToMany(mappedBy = "ownerUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  List<Task> tasks;
+
+
 }

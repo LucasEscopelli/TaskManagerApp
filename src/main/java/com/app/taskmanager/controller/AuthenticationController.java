@@ -1,4 +1,3 @@
 package com.app.taskmanager.controller;
 
-public class AuthenticationController {
-}
+public class AuthenticationController {}
