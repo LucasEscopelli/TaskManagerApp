@@ -1,13 +1,13 @@
 package com.app.taskmanager.service.processors.services.interfaces;
 
-import com.app.taskmanager.api.dto.UserDto;
+import com.app.taskmanager.model.User;
 
 public interface UserServiceDef {
-  void createUser(UserDto newUser);
+  void createUser(User newUser);
 
-  UserDto getUserById(Long id);
+  User getUserById(Long id);
 
-  void updateUser(Long id, UserDto userFromRequest);
+  void updateUser(Long id, User userFromRequest);
 
   void deleteUser(Long id);
 }

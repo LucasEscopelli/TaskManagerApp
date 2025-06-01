@@ -3,10 +3,13 @@ package com.app.taskmanager.service.nullobjects;
 import com.app.taskmanager.model.Task;
 import com.app.taskmanager.model.User;
 import jakarta.persistence.*;
+import lombok.NonNull;
+
 import java.util.Collections;
 import java.util.List;
 
 public class NullUser extends User {
+
   public Long getUserId() {
     return (long) -1;
   }

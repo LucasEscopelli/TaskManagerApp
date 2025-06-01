@@ -23,6 +23,8 @@ public class TaskRecord {
   @Temporal(TemporalType.TIMESTAMP)
   Date recordDate;
 
+  User ownerUser;
+
   @ManyToOne
   @JoinColumn(name = "responsable_user_id", nullable = false)
   User responsableUser;
