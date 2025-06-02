@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/tasks")
+@RestController
+@RequestMapping("/tasks")
 public class TaskController {
     TaskServiceImp taskServiceImp;
 
@@ -34,6 +35,4 @@ public class TaskController {
     public void deleteTask(@RequestParam Long id){
 
     }
-
-
 }

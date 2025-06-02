@@ -3,10 +3,13 @@ package com.app.taskmanager.model;
 import com.app.taskmanager.model.enums.Status;
 import jakarta.persistence.*;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Task {
