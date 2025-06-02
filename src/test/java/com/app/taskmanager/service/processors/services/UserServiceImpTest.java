@@ -2,7 +2,9 @@ package com.app.taskmanager.service.processors.services;
 
 import com.app.taskmanager.model.User;
 import com.app.taskmanager.service.nullobjects.NullUser;
+import com.app.taskmanager.service.processors.updater.TaskUpdater;
 import com.app.taskmanager.service.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,11 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static jdk.internal.org.objectweb.asm.util.CheckClassAdapter.verify;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImpTest {
@@ -39,7 +38,8 @@ public class UserServiceImpTest {
     @Test
     void testGetUserByIdFound() {
         User user = new User();
-        user.setId(1L);
+        user.setUserId(1L);
+
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         User result = userService.getUserById(1L);
@@ -53,6 +53,43 @@ public class UserServiceImpTest {
 
         User result = userService.getUserById(1L);
 
-        assertTrue(result instanceof NullUser);
+        assertInstanceOf(NullUser.class, result);
+    }
+
+    @Test
+    void testUpdateUserFound() {
+
+        User originalUser = new User();
+        originalUser.setUserId(1L);
+        originalUser.setName("original name");
+
+        User updateUser = new User();
+        updateUser.setUserId(1L);
+        updateUser.setName("updated name");
+
+        when(userRepository.findById(1L)).thenReturn(Optional.of(originalUser));
+
+        userService.updateUser(1L, updateUser);
+
+        verify(userRepository, times(1)).save(originalUser);
+        assertEquals(updateUser.getName(), originalUser.getName());
+    }
+
+    @Test
+    void testUpdateUserNotFound() {
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        Exception ex = assertThrows(EntityNotFoundException.class, () -> {
+            userService.updateUser(1L, new User());
+        });
+
+        assertEquals("User not found", ex.getMessage());
+    }
+
+    @Test
+    void testDeleteUser() {
+        userService.deleteUser(1L);
+
+        verify(userRepository, times(1)).deleteById(1L);
     }
 }
