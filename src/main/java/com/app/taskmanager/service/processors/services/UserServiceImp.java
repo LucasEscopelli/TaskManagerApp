@@ -6,7 +6,9 @@ import com.app.taskmanager.service.processors.services.interfaces.UserServiceDef
 import com.app.taskmanager.service.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class UserServiceImp implements UserServiceDef {
@@ -31,6 +33,7 @@ public class UserServiceImp implements UserServiceDef {
             .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
     user.setName(userFromRequest.getName());
+    var authentication = SecurityContextHolder.getContext().getAuthentication();
 
     userRepository.save(user);
   }
@@ -38,5 +41,9 @@ public class UserServiceImp implements UserServiceDef {
   @Override
   public void deleteUser(Long id) {
     userRepository.deleteById(id);
+  }
+
+  public User getUserByLogin(String login) {
+    return userRepository.findByLogin(login).orElseThrow();
   }
 }

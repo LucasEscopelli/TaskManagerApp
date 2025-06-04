@@ -1,8 +1,6 @@
 package com.app.taskmanager.controller;
 
-import com.app.taskmanager.model.Account;
 import com.app.taskmanager.model.User;
-import com.app.taskmanager.service.processors.services.AccountService;
 import com.app.taskmanager.service.processors.services.interfaces.UserServiceDef;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +11,6 @@ public class UserController {
 
   @Autowired UserServiceDef userService;
 
-  @Autowired
-  AccountService accountService;
 
   @GetMapping("/{userId}")
   public User getUser(@PathVariable Long userId) {
@@ -34,10 +30,5 @@ public class UserController {
   @DeleteMapping("/{id}")
   public void deleteUser(@PathVariable Long id) {
     userService.deleteUser(id);
-  }
-
-  @GetMapping("/account")
-  public Account getAccount(){
-    return accountService.getAccountByLogin("admin");
   }
 }
