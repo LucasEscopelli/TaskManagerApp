@@ -7,50 +7,50 @@ import com.app.taskmanager.model.User;
 import com.app.taskmanager.service.processors.services.UserServiceImp;
 import com.app.taskmanager.service.security.login.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthenticationServiceTest {
-    @Mock
-    private UserServiceImp userService;
+  @Mock private UserServiceImp userService;
 
-    @InjectMocks
-    private AuthenticationService authenticationService;
+  @InjectMocks private AuthenticationService authenticationService;
 
-    private User mockUser;
+  private User mockUser;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockUser = new User();
-        mockUser.setLogin("testuser");
-        mockUser.setPassword("testpassword");
-    }
+  @BeforeEach
+  void setUp() {
+    MockitoAnnotations.openMocks(this);
+    mockUser = new User();
+    mockUser.setLogin("testuser");
+    mockUser.setPassword("testpassword");
+  }
 
-    @Test
-    void testAuthenticateSuccess() {
-        when(userService.getUserByLogin("testuser")).thenReturn(mockUser);
+  @Test
+  void testAuthenticateSuccess() {
+    when(userService.getUserByLogin("testuser")).thenReturn(mockUser);
 
-        String token = authenticationService.authenticate("testuser", "testpassword");
+    String token = authenticationService.authenticate("testuser", "testpassword");
 
-        assertNotNull(token);
-        assertTrue(token.length() > 10); // Pode ajustar dependendo do token gerado
-    }
+    assertNotNull(token);
+    assertTrue(token.length() > 10); // Pode ajustar dependendo do token gerado
+  }
 
-    @Test
-    void testAuthenticateFailure() {
-        when(userService.getUserByLogin("testuser")).thenReturn(mockUser);
+  @Test
+  void testAuthenticateFailure() {
+    when(userService.getUserByLogin("testuser")).thenReturn(mockUser);
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            authenticationService.authenticate("testuser", "wrongpassword");
-        });
+    RuntimeException exception =
+        assertThrows(
+            RuntimeException.class,
+            () -> {
+              authenticationService.authenticate("testuser", "wrongpassword");
+            });
 
-        assertEquals("Invalid credentials", exception.getMessage());
-    }
+    assertEquals("Invalid credentials", exception.getMessage());
+  }
 }

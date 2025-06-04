@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
-  @Autowired
-  UserServiceImp userService;
+  @Autowired UserServiceImp userService;
 
   public String authenticate(String username, String password) {
     User user = userService.getUserByLogin(username);

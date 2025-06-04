@@ -20,11 +20,13 @@ public class SecurityConfig {
     return http.build();
   }
 
-  private static Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> defineAuthEndpointConfig() {
+  private static Customizer<
+          AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry>
+      defineAuthEndpointConfig() {
     return auth ->
-            auth.requestMatchers("/auth/login")
-                    .permitAll() // libera login
-                    .anyRequest()
-                    .authenticated();
+        auth.requestMatchers("/auth/login")
+            .permitAll() // libera login
+            .anyRequest()
+            .authenticated();
   }
 }
