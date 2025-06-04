@@ -1,39 +1,53 @@
 @startuml
-class User {
-    + Long userId
-    + String name
-    + List<Task> tasks
+
+package "Model" {
+    class User {
+        + Long userId
+        + String name
+        + List<Task> tasks
+    }
+
+    class Task {
+        + Long taskId
+        + String taskDescription
+        + String taskStatus
+        + User ownerUser
+    }
+
+    User "1" o-- "*" Task
 }
 
-class Task {
-    + Long taskId
-    + String taskDescription
-    + String taskStatus
-    + User ownerUser
+package "Repository" {
+    interface UserRepository
+    interface TaskRepository
 }
 
-interface UserRepository
-interface TaskRepository
+package "Service" {
+    class TaskService
+    class UserService
+    class AuthService
+}
 
-class UserService
-class TaskService
-class AuthService
+package "Controller" {
+    class TaskController
+    class UserController
+    class AuthController
+}
 
-class UserController
-class TaskController
-class AuthController
+class TaskUpdater
 
-
-User "1" o-- "*" Task
-
+AuthController--> AuthService
 UserController --> UserService
 TaskController --> TaskService
-AuthController --> AuthService
+
 
 UserService --> UserRepository
 TaskService --> TaskRepository
+TaskService --> TaskUpdater 
+
+
+TaskUpdater --> Task
 
 UserService --> User
 TaskService --> Task
-AuthService --> User
 @enduml
