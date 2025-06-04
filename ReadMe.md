@@ -100,3 +100,9 @@ O sistema possui duas entidades principais:
 
 - Utilizamos **Mockito** para simular dependências em testes de unidade, especialmente nos serviços e controladores.
 - Os testes isolam a lógica de negócio das interações com banco de dados e autenticação.
+
+---
+
+## 6. Class diagram 
+
+![CLASS DIAGRAM](classDiagram.png)
