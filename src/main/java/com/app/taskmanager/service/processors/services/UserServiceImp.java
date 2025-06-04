@@ -5,12 +5,13 @@ import com.app.taskmanager.service.nullobjects.NullUser;
 import com.app.taskmanager.service.processors.services.interfaces.UserServiceDef;
 import com.app.taskmanager.service.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImp implements UserServiceDef {
 
-  UserRepository userRepository;
+  @Autowired UserRepository userRepository;
 
   @Override
   public void createUser(User newUser) {

@@ -1,4 +1,3 @@
 package com.app.taskmanager.controller;
 
-public class AuthorizationControllerTest {
-}
+public class AuthorizationControllerTest {}

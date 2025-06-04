@@ -1,35 +1,43 @@
 package com.app.taskmanager.controller;
 
+import com.app.taskmanager.model.Account;
 import com.app.taskmanager.model.User;
+import com.app.taskmanager.service.processors.services.AccountService;
 import com.app.taskmanager.service.processors.services.interfaces.UserServiceDef;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-  @Autowired
-  UserServiceDef userService;
+  @Autowired UserServiceDef userService;
 
-  @GetMapping("/{id}")
+  @Autowired
+  AccountService accountService;
+
+  @GetMapping("/{userId}")
   public User getUser(@PathVariable Long userId) {
     return userService.getUserById(userId);
   }
 
   @PostMapping
-  public void createUser(User newUser) {
+  public void createUser(@RequestBody User newUser) {
     userService.createUser(newUser);
   }
 
   @PutMapping("/{id}")
-  public void updateUser(@PathVariable Long id, User updatedUser) {
+  public void updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
     userService.updateUser(id, updatedUser);
   }
 
   @DeleteMapping("/{id}")
   public void deleteUser(@PathVariable Long id) {
     userService.deleteUser(id);
+  }
+
+  @GetMapping("/account")
+  public Account getAccount(){
+    return accountService.getAccountByLogin("admin");
   }
 }

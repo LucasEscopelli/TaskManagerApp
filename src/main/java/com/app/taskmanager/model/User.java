@@ -22,4 +22,6 @@ public class User {
 
   @OneToMany(mappedBy = "ownerUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   List<Task> tasks;
+
+  @ManyToOne Account lastModifiedBy;
 }
