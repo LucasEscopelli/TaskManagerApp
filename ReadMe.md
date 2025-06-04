@@ -32,7 +32,7 @@ O projeto adota a arquitetura **MVC** com camadas separadas, dividindo responsab
 - **Spring Data JPA**: Abstração para operações com banco de dados.
 - **Lombok**: Redução de código boilerplate em entidades e DTOs.
 - **Mockito + JUnit**: Testes automatizados com simulação de dependências.
-
+- **JWT**: autenticação
 ---
 
 ## 3. Modelagem de Dados
