@@ -1,0 +1,39 @@
+@startuml
+class User {
+    + Long userId
+    + String name
+    + List<Task> tasks
+}
+
+class Task {
+    + Long taskId
+    + String taskDescription
+    + String taskStatus
+    + User ownerUser
+}
+
+interface UserRepository
+interface TaskRepository
+
+class UserService
+class TaskService
+class AuthService
+
+class UserController
+class TaskController
+class AuthController
+
+
+User "1" o-- "*" Task
+
+UserController --> UserService
+TaskController --> TaskService
+AuthController --> AuthService
+
+UserService --> UserRepository
+TaskService --> TaskRepository
+
+UserService --> User
+TaskService --> Task
+AuthService --> User
+@enduml
